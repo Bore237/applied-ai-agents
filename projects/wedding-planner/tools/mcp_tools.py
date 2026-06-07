@@ -10,6 +10,12 @@ async def get_mcp_tools(timeout=60):
                 "transport": "stdio",
                 "args": ["D:/marchine_learning/Agent_course/agentic-labs/projects/wedding-planner/tools/mcp_lieux.py"],
             },
+
+            "traiteur": {
+                "command": "python",
+                "transport": "stdio",
+                "args": ["D:/marchine_learning/Agent_course/agentic-labs/projects/wedding-planner/tools/mcp_traiteur.py"]
+            }
         }
     )
 

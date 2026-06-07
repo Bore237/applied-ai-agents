@@ -16,6 +16,26 @@ CREATE TABLE lieux (
     disponible INTEGER DEFAULT 1
 );
 
+CREATE TABLE menus_prix (
+    meal_id TEXT PRIMARY KEY,
+    meal_name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    prix_unitaire REAL NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE menus_traiteur (
+    id INTEGER PRIMARY KEY,
+    mariage_id INTEGER,
+    nom_plat TEXT,
+    categorie TEXT,
+    cout_unitaire REAL,
+    source TEXT,
+    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE budget_depenses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     mariage_id INTEGER,
