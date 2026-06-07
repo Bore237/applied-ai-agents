@@ -1,61 +1,38 @@
 import gradio as gr
-import base64
-from langchain_core.messages import HumanMessage
-from src.agent import init_chef_agent
+from src.agent import ChefAgentContext
 
-# Initialisation de l'agent au démarrage de l'application
-chef_agent = init_chef_agent()
-config = {"configurable": {"thread_id": "gradio_session"}}
+def predict(text_input, image_input, model_choice):
+    # 1. On initialise le contexte de l'agent avec le modèle choisi par l'utilisateur
+    chef_pipeline = ChefAgentContext(model_name=model_choice)
+    
+    # 2. On lance l'agent (il va décider seul d'appeler l'outil image ou web)
+    try:
+        recipe_data = chef_pipeline.run(
+            text_input=text_input,
+            image_filepath=image_input,
+            thread_id="session_gradio_1"
+        )
 
-def predict(text_input, image_input):
-    content = []
-
-    # 1. Ajout du texte si présent
-    if text_input:
-        content.append({"type": "text", "text": text_input})
-
-    # 2. Gestion de l'image (Gradio fournit le chemin du fichier temporaire)
-    if image_input is not None:
-        with open(image_input, "rb") as image_file:
-            img_bytes = image_file.read()
-            img_b64 = base64.b64encode(img_bytes).decode("utf-8")
-
-        content.append({
-            "type": "image", 
-            "base64": img_b64, 
-            "mime_type": "image/png" # Idéalement, détecter dynamiquement le mime_type
-        })
+        return recipe_data[-1].content
         
-    if not content:
-        return "Veuillez fournir des ingrédients (texte ou image)."
+    except Exception as e:
+        return f"Erreur lors de l'exécution de l'agent : {str(e)}"
 
-    # 3. Appel de l'agent
-    message = HumanMessage(content=content)
-    
-    # On invoque l'agent (ajuste selon la syntaxe exacte de ton create_agent)
-    response = chef_agent.invoke({"messages": [message]}, config=config)
-    
-    # Extraction de la réponse (dépend de la structure de ton état LangGraph)
-    return response["messages"][-1].content
-
-# --- Interface Graphique Gradio ---
+# --- Layout Gradio ---
 with gr.Blocks() as demo:
-    gr.Markdown("# 🍳 Chef IA Multimodal - Assistant Recettes")
+    gr.Markdown("# 🍳 Chef Agent - Mode Production ReAct")
     
     with gr.Row():
         with gr.Column():
-            txt_ingredients = gr.Textbox(label="Ingrédients textuels", placeholder="Ex: Tomates, Oignons, Poulet...")
-            img_ingredients = gr.Image(type="filepath", label="Photo de ton frigo / ingrédients")
-            btn_submit = gr.Button("Générer la recette", variant="primary")
+            txt_in = gr.Textbox(label="Tes ingrédients (texte)")
+            img_in = gr.Image(type="filepath", label="Photo de ton frigo")
+            model_sel = gr.Dropdown(choices=["gemini-2.5-flash", "llama-3.3-70b"], value="llama-3.3-70b", label="Cerveau de l'agent")
+            btn = gr.Button("Générer la recette", variant="primary")
             
         with gr.Column():
-            output_recipe = gr.Markdown(label="Proposition du Chef")
+            txt_out = gr.Markdown(label="Réponse de l'agent")
             
-    btn_submit.click(
-        fn=predict, 
-        inputs=[txt_ingredients, img_ingredients], 
-        outputs=[output_recipe]
-    )
+    btn.click(fn=predict, inputs=[txt_in, img_in, model_sel], outputs=[txt_out])
 
 if __name__ == "__main__":
     demo.launch()
