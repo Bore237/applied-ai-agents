@@ -1,0 +1,17 @@
+# --- Framework Interface Graphique ---
+streamlit
+
+# --- Framework Agents & LLM ---
+langchain
+langchain-core
+langchain-community
+langchain-groq
+
+# --- Protocole MCP (Model Context Protocol) ---
+mcp
+fastmcp
+
+# --- Utilitaires & Gestion Asynchrone ---
+python-dotenv
+asyncio
+typing-extensions
