@@ -1,55 +1,27 @@
 from pydantic import BaseModel, Field
 from typing import List, Literal, TypedDict, Optional
 
-
-
 class Ingredient(BaseModel):
-    name: str = Field(..., description="Name of the ingredient")
-    quantity: str | None = Field(
-        default=None,
-        description="Optional quantity (e.g., '200g', '2 tbsp', '1 unit')"
-    )
+    name: str = Field(description="Nom de l'ingrédient manquant")
+    quantity: Optional[str] = Field(None, description="Quantité ou proportion manquante si spécifiée (ex: '200g', '1 cuillère à soupe')")
 
+class Recipe(BaseModel):
+    title: str = Field(description="Nom de la recette de cuisine")
+    match_score: int = Field(description="Score de correspondance de 0 à 100 basé sur les ingrédients possédés")
+    justification: str = Field(description="Explication concise du score (ex: 'Il ne vous manque que du lait')")
+    ingredients_required: List[str] = Field(description="Liste complète des ingrédients requis pour cette recette")
+    instructions: List[str] = Field(description="Étapes de préparation claires et séquentielles")
+    ingredients_manquant: List[Ingredient] = Field(description="Ingrédients requis pour la recette qui ne sont pas disponibles dans le frigo ou le texte de l'utilisateur")
+    temps_preparation: int = Field(ge=0, description="Temps de préparation estimé en minutes")
 
 class RecipeResponse(BaseModel):
-    dish_name: str = Field(
-        ...,
-        description="Name of the final dish"
-    )
+    recipes: List[Recipe] = Field(description="Liste contenant exactement les 3 meilleures recettes sélectionnées")
 
-    justification: str = Field(
-        ...,
-        description="Why this recipe is the best choice compared to other possible dishes"
-    )
-
-    ingredients_used: List[Ingredient] = Field(
-        ...,
-        description="List of ingredients used in the recipe with quantities when available"
-    )
-
-    missing_ingredients: List[Ingredient] = Field(
-        ...,
-        description="Ingredients required for the recipe that are not available"
-    )
-
-    steps: List[str] = Field(
-        ...,
-        description="Step-by-step cooking instructions in logical order"
-    )
-
-    prep_time_minutes: int = Field(
-        ...,
-        ge=0,
-        description="Preparation time in minutes"
-    )
-
-    cook_time_minutes: int = Field(
-        ...,
-        ge=0,
-        description="Cooking time in minutes"
-    )
-
-    difficulty: Literal["easy", "medium", "hard"] = Field(
-        ...,
-        description="Difficulty level of the recipe"
-    )
+# Definir etat du graph
+class ChefState(TypedDict):
+    text_input: str
+    image_filepath: Optional[str]
+    extracted_ingredients: List[str]
+    all_ingredients: List[str]
+    raw_search_results: str
+    final_recipes: Optional[RecipeResponse]
