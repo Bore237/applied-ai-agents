@@ -4,9 +4,9 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_core.tools import Tool
 from src.config import SEARX_HOST
 
-def get_tools():
+def get_tools(local = True):
     # Si on détecte qu'on tourne sur Hugging Face (ou si SEARX_HOST n'est pas local)
-    if os.getenv("HF_SPACE_ID") or os.getenv("SEARX_HOST") is None:
+    if not local:
         # On utilise le wrapper gratuit DuckDuckGo en prod
         ddg_search = DuckDuckGoSearchRun()
         return [
@@ -17,7 +17,7 @@ def get_tools():
             )
         ]
     else:
-        # On garde ton SearxNG local pour tes tests chez toi
+        # On garde ton SearxNG  pour les test en local
         search = SearxSearchWrapper(
             searx_host=SEARX_HOST,
             engines=["google", "wikipedia"],
