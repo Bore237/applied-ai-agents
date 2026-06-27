@@ -1,0 +1,19 @@
+# --- Interface Utilisateur et Analyse de Données ---
+streamlit>=1.35.0
+pandas>=2.0.0
+
+
+# --- Orchestration d'Agents (LangGraph & LangChain) ---
+langgraph>=0.1.4
+langchain-core>=0.2.0
+langchain-google-genai>=1.0.5
+langchain-groq>=0.1.5
+langchain-community>=0.2.0
+ddgs
+
+# --- Validation de Données et Configuration ---
+pydantic>=2.7.0
+python-dotenv>=1.0.1
+
+# --- Visualisation de Graphe ---
+grandalf>=0.8

@@ -1,72 +1,17 @@
 
-liste_ingredients_1 = """
-Ingrédients :
+# src/prompts.py
 
-Poulet
-Riz
-Oignon
-Ail
-Carotte
-Huile d'olive
-Sel
-Poivre
+SYSTEM_PROMPT = """You are an expert Chef and Culinary Data Analyst. 
+Your role is to analyze a list of available ingredients and web search results to select the 3 absolute best recipes.
+
+Strict Rules for New Fields:
+1. Compare the available ingredients with the recipe's requirements to extract `ingredients_manquant`. Be precise about what is missing.
+2. Estimate or extract the exact `temps_preparation` in minutes as an integer.
+3. Calculate the `match_score` (0 to 100): 100 means zero missing ingredients. Deduct points proportionally for each missing item based on its importance.
+4. Provide the `justification`, instructions, and ingredient names strictly in professional French.
 """
-#Résultat attendu :
-#Le modèle devrait proposer quelque chose comme un riz au poulet, un pilaf de poulet ou un poulet sauté aux légumes.
 
-
-liste_ingredients_2 = """
-Ingrédients :
-
-Pâtes
-Tomates
-Basilic
-Mozzarella
-Ail
-Oignon
-Parmesan
-Huile d'olive
-Sel
-Poivre
-"""
-#Résultat attendu :
-#Des pâtes à la sauce tomate basilic, des pâtes caprese, ou un gratin de pâtes italien.
-
-
-liste_ingredients_3 = """
-Ingrédients :
-
-Saumon
-Avocat
-Mangue
-Riz
-Concombre
-Sauce soja
-Gingembre
-Citron vert
-Graines de sésame
-"""
-#Résultat attendu :
-#Un poke bowl au saumon, un sushi bowl ou une salade fusion asiatique.
-
-
-liste_ingredients_4="""
-Ingrédients :
-
-Pois chiches
-Lait de coco
-Épinards
-Tomates
-Oignon
-Ail
-Gingembre
-Curry
-Riz
-"""
-#Résultat attendu :
-#Curry de pois chiches au lait de coco, dahl revisité ou plat végétarien indien similaire.
-
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT2 = """
 You are an expert professional chef and recipe researcher.
 
 You may receive:
