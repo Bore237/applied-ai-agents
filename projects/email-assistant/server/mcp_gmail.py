@@ -18,11 +18,11 @@ mcp = FastMCP(
     ],
 )
 
-mcp.add_tool(gmail_tool.send_email, name='Gmail-Send-Email', description='Send and email message in Gmail')
-mcp.add_tool(gmail_tool.get_email_message_details, name='Gmail-Get-Email-Message-Details', description="Get details of an email message in Gmail")
-mcp.add_tool(gmail_tool.get_email_message_body, name='Get-Email-Message-Body', description='Get the body of an email message (Gmail)')
-mcp.add_tool(gmail_tool.search_emails, name='Gmail-Search-Emails', description='Search or return emails in Gmail. Default is None, which returns all email')
-mcp.add_tool(gmail_tool.delete_email_message, name='Gmail-Delete-Email-Message-Email-Message', description='Delete an email message in Gmail.')
+mcp.add_tool(gmail_tool.send_email, name='Gmail-Send-Email', description="Envoie un e-mail. Assure-toi de fournir le destinataire ('to'), le sujet et le corps ('body'). Ne l'utilise pas pour répondre, seulement pour de nouveaux e-mails.")
+mcp.add_tool(gmail_tool.get_email_message_details, name='Gmail-Get-Email-Message-Details', description="Obtient les métadonnées détaillées d'un e-mail (comme l'expéditeur, la date, l'objet et les dossiers/labels). REQUIERT un 'msg_id' valide obtenu au préalable via 'Gmail-Search-Emails'.")
+mcp.add_tool(gmail_tool.get_email_message_body, name='Get-Email-Message-Body', description="Obtient le contenu d'un e-mail. REQUIERT un 'msg_id' valide obtenu au préalable via 'Gmail-Search-Emails'.")
+mcp.add_tool(gmail_tool.search_emails, name='Gmail-Search-Emails', description="Recherche des e-mails. Retourne une liste contenant les 'msg_id'")
+mcp.add_tool(gmail_tool.delete_email_message, name='Gmail-Delete-Email-Message', description="Supprime un e-mail de façon permanente. REQUIERT un 'msg_id' valide. Ne l'utilise que si l'utilisateur a explicitement demandé une suppression.")
 
 if __name__ == "__main__":
     mcp.run()
