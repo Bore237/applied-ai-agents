@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 from pydantic import BaseModel, Field
-from .google_api import create_service
+from server.google_api import create_service
 
 #gpt-oss-120b
 
@@ -94,7 +94,7 @@ class GmailTool:
             
             raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
 
-            response = self.service.users().messages().send(
+            response = self.service.users().messages().send( # type: ignore
                 userId='me',
                 body={'raw': raw_message}
             ).execute()
@@ -128,7 +128,7 @@ class GmailTool:
             if max_results and current_max <= 0:
                 break
 
-            result = self.service.users().messages().list(
+            result = self.service.users().messages().list( # pyright: ignore[reportOptionalMemberAccess]
                 userId='me',
                 q=query,
                 labelIds=label_,
@@ -159,7 +159,7 @@ class GmailTool:
         )
 
     def get_email_message_details(self, msg_id: str) -> EmailMessage:
-        message = self.service.users().messages().get(userId='me', id=msg_id, format='full').execute()
+        message = self.service.users().messages().get(userId='me', id=msg_id, format='full').execute() # type: ignore
         payload = message['payload']
         headers = payload.get('headers', [])
 
@@ -201,7 +201,7 @@ class GmailTool:
         returns:
             str: The body of the email message.
         """
-        message = self.service.users().messages().get(userId='me', id=msg_id, format='full').execute()
+        message = self.service.users().messages().get(userId='me', id=msg_id, format='full').execute() # type: ignore
         payload = message['payload']
         return self._extract_body(payload)
     
@@ -242,7 +242,7 @@ class GmailTool:
             dict: Response from the Gmail API
         """
         try:
-            self.service.users().messages().delete(userId='me', id=msg_id).execute()
+            self.service.users().messages().delete(userId='me', id=msg_id).execute() # type: ignore
             return {'status': 'success'}
         except Exception as e: # Correction de la capture d'exception
             return {'error': f'An error occurred: {str(e)}', 'status': 'failed'}

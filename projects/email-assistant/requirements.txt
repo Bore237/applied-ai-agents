@@ -1,5 +1,23 @@
+# --- Core Frameworks & Agents ---
+langgraph>=0.1.0
+langchain-core
+langchain-groq
+langchain-mcp-adapters
+
+# --- Protocoles & Serveurs ---
+mcp>=1.0.0
+
+# --- Google API (Gmail Tooling) ---
 requests 
 google-auth 
 google-auth-oauthlib
 google-api-python-client
 google-auth-httplib2
+
+# --- Interface Graphique & Environnement ---
+streamlit>=1.30.0
+python-dotenv>=1.0.0
+
+# --- Tests & Qualité ---
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
