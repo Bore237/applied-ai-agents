@@ -1,3 +1,9 @@
+__pycache__
+*.pyc
+*.env*
+*.db*
+*_log.txt
+data.sql
 *.pyc*
 *.db
 *.env*
