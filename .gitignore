@@ -4,3 +4,8 @@ __pycache__
 *.db*
 *_log.txt
 data.sql
+*.pyc*
+*.db
+*.env*
+data.sql
+__pycache__
