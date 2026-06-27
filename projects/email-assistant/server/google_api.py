@@ -24,7 +24,7 @@ def create_service(client_secret_file, api_name, api_version, *scopes, prefix=''
     SCOPES = [scope for scope in scopes[0]]
 
     creds = None
-    working_dir = os.getcwd()
+    working_dir = os.path.dirname(os.path.abspath(client_secret_file))
     token_dir = 'tokenn files'
     token_file = f'token_{API_SERVICE_NAME}_{API_VERSION}{prefix}.json'
 
