@@ -98,3 +98,11 @@ Pour exécuter les tests :
 ```Bash
 python -m unittest tests/test_agent.py
 ```
+
+feat: add tag and author name README.md
+
+## ✍️ Informations Projet
+
+- **Auteur** : Goudjou Borel / Bore237  
+- **Date de réalisation** : Juin 2026  
+- **Version** : 1.0.0 (MVP Streamlit fonctionnel)
