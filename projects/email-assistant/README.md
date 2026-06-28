@@ -1,4 +1,11 @@
 # ✉️ MCP Email Assistant AI (avec HITL)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![LangChain](https://img.shields.io/badge/LangChain-multi--agent-blue)
+![Groq](https://img.shields.io/badge/Groq-LLM-orange)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
+![SQLite](https://img.shields.io/badge/DB-SQLite-lightgrey)
+![Status](https://img.shields.io/badge/status-active-success)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 Assistant de messagerie intelligent et hautement sécurisé fondé sur l'architecture LangGraph et le Model Context Protocol (MCP) de Anthropic. L'application intègre une gouvernance stricte des actions critiques via un mécanisme de validation humaine (Human-In-The-Loop) et une optimisation dynamique du contexte par résumé automatique.
 
@@ -89,3 +96,9 @@ L'intégration conjointe de plusieurs middlewares démontre la robustesse de la 
 * SummarizationMiddleware : Déclenché dès le dépassement du seuil critique de messages. Il condense l'historique ancien via un modèle rapide (llama3-8b) tout en conservant les derniers échanges textuels intacts.
 
 * HumanInTheLoopMiddleware : Fige l'état du graphe dans un InMemorySaver dès qu'un outil Gmail sensible est ciblé. Le graphe attend alors une instruction explicite Command(resume=...) contenant le nombre exact de décisions aligné sur le nombre de tool_calls générés par le LLM principal (llama3-70b).
+
+  ## ✍️ Informations Projet
+
+- **Auteur** : Goudjou Borel / Bore237  
+- **Date de réalisation** : Juin 2026  
+- **Version** : 1.0.0 (MVP Streamlit fonctionnel)
