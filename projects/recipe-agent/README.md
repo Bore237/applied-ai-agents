@@ -1,4 +1,11 @@
 # 🥗 Chef AI Dashboard – Assistant Culinaire Intelligent & Agentic Workflow
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![LangChain](https://img.shields.io/badge/LangChain-multi--agent-blue)
+![Groq](https://img.shields.io/badge/Groq-LLM-orange)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
+![SQLite](https://img.shields.io/badge/DB-SQLite-lightgrey)
+![Status](https://img.shields.io/badge/status-active-success)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 Bienvenue dans **Chef AI Dashboard**, une application de production combinant la puissance des architectures d'agents décisionnels (**LangGraph**) et une interface analytique moderne (**Streamlit**). 
 
